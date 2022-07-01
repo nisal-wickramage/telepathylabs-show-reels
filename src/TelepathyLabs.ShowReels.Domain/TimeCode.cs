@@ -8,8 +8,22 @@ namespace TelepathyLabs.ShowReels.Domain
         {
             if (frames >= framesPerSecond)
             {
+                // add custom exception
                 throw new Exception("Frames should be less than frame rate.");
             }
+
+            if (framesPerSecond <= 1)
+            {
+                // add custom exception
+                throw new Exception("Frame rate should be greater than 1");
+            }
+
+            if (hours < 0 || minutes < 0 || seconds < 0 || frames < 0)
+            {
+                // add custom exception
+                throw new Exception("Hour, Minute, Second and Frame parameters should be positive.");
+            }
+
             Hours = hours;
             Minutes = minutes;
             Seconds = seconds;
@@ -34,6 +48,7 @@ namespace TelepathyLabs.ShowReels.Domain
         {
             if (timeCode.FramesPerSecond != FramesPerSecond)
             {
+                // add custom exception
                 throw new Exception("Frame rates doesn't match.");
             }
             var totalFrames = Frames + timeCode.Frames;
@@ -70,6 +85,7 @@ namespace TelepathyLabs.ShowReels.Domain
         {
             if (a.FramesPerSecond != b.FramesPerSecond)
             {
+                // add custom exception
                 throw new Exception("Frame rates doesn't match.");
             }
 
@@ -81,6 +97,7 @@ namespace TelepathyLabs.ShowReels.Domain
         {
             if (a.FramesPerSecond != b.FramesPerSecond)
             {
+                // add custom exception
                 throw new Exception("Frame rates doesn't match.");
             }
 

@@ -13,6 +13,22 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
         }
 
         [Fact]
+        public void AllParametersShouldBePositive()
+        {
+            Assert.Throws<Exception>(() => new TimeCode(1, 1, 1, -1, framesPerSecondForPAL));
+            Assert.Throws<Exception>(() => new TimeCode(1, 1, -1, 1, framesPerSecondForPAL));
+            Assert.Throws<Exception>(() => new TimeCode(1, -1, 1, 1, framesPerSecondForPAL));
+            Assert.Throws<Exception>(() => new TimeCode(-1, 1, 1, 1, framesPerSecondForPAL));
+        }
+
+        [Fact]
+        public void FrameRateShouldBeGreaterThan1()
+        {
+            Assert.Throws<Exception>(() => new TimeCode(1, 1, 1, 1, 0));
+            Assert.Throws<Exception>(() => new TimeCode(1, 1, 1, 1, 1));
+        }
+
+        [Fact]
         public void NumberOfFramesShouldBeLessThanFramesPerSecond()
         {
             Assert.Throws<Exception>(() => new TimeCode(1, 1, 1, 30, framesPerSecondForNTSC));
@@ -66,7 +82,6 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
 
             Assert.Throws<Exception>(() => timeCode1 < timeCode2);
             Assert.Throws<Exception>(() => timeCode2 > timeCode1);
-
         }
     }
 }
