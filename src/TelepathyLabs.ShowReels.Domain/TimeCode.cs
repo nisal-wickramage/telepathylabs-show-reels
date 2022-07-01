@@ -92,7 +92,6 @@ namespace TelepathyLabs.ShowReels.Domain
             return a.TotalFrames < b.TotalFrames;
         }
 
-
         public static bool operator >(TimeCode a, TimeCode b)
         {
             if (a.FramesPerSecond != b.FramesPerSecond)
@@ -102,6 +101,28 @@ namespace TelepathyLabs.ShowReels.Domain
             }
 
             return a.TotalFrames > b.TotalFrames;
+        }
+
+        public static bool operator >=(TimeCode a, TimeCode b)
+        {
+            if (a.FramesPerSecond != b.FramesPerSecond)
+            {
+                // add custom exception
+                throw new Exception("Frame rates doesn't match.");
+            }
+
+            return a.TotalFrames >= b.TotalFrames;
+        }
+
+        public static bool operator <=(TimeCode a, TimeCode b)
+        {
+            if (a.FramesPerSecond != b.FramesPerSecond)
+            {
+                // add custom exception
+                throw new Exception("Frame rates doesn't match.");
+            }
+
+            return a.TotalFrames <= b.TotalFrames;
         }
     }
 }
