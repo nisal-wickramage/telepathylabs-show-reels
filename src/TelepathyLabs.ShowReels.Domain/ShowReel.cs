@@ -12,7 +12,7 @@ namespace TelepathyLabs.ShowReels.Domain
             string description,
             VideoStandard videoStandard,
             VideoDefinition videoDefinition,
-            VideoClip[] videoClips)
+            List<VideoClip> videoClips)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -24,7 +24,7 @@ namespace TelepathyLabs.ShowReels.Domain
                 throw new Exception("Description cannot be null or empty.");
             }
 
-            if (videoClips == null || videoClips.Length < 1)
+            if (videoClips == null || videoClips.Count < 1)
             {
                 throw new Exception("Atleast on video clip is required.");
             }
@@ -45,7 +45,7 @@ namespace TelepathyLabs.ShowReels.Domain
                 throw new Exception("All video clips should be in same video definition as the show reel.");
             }
 
-            for (int x = 1; x < videoClips.Length; x++)
+            for (int x = 1; x < videoClips.Count; x++)
             {
                 if (videoClips[x - 1].EndTimeCode >= videoClips[x].StartTimeCode)
                 {
@@ -59,12 +59,19 @@ namespace TelepathyLabs.ShowReels.Domain
             VideoDefinition = videoDefinition;
             VideoClips = videoClips;
         }
-
+ 
         public string Name { get; private set; }
         public string Description { get; private set; }
         public VideoStandard VideoStandard { get; private set; }
         public VideoDefinition VideoDefinition { get; private set; }
-        public VideoClip[] VideoClips { get; private set; }
+        public List<VideoClip> VideoClips { get; private set; }
+        public TimeCode TotalDuration
+        {
+            get
+            {
+                return VideoClips.Last().EndTimeCode;
+            }
+        }
 
         public void AddClip(VideoClip videoClip)
         {
@@ -81,9 +88,7 @@ namespace TelepathyLabs.ShowReels.Domain
                 throw new Exception("Video clips cannot overlap.");
             }
 
-            var clips = VideoClips.ToList();
-            clips.Add(videoClip);
-            VideoClips = clips.ToArray();
+            VideoClips.Add(videoClip);
         }
     }
 

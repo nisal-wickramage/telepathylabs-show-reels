@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace TelepathyLabs.ShowReels.Domain.Tests
@@ -19,14 +20,14 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
                 "Test 001 description",
                 VideoStandard.PAL,
                 VideoDefinition.HD,
-                new VideoClip[0]));
+                new List<VideoClip>()));
 
             Assert.Throws<Exception>(() => new ShowReel(
                 "ShowReel001",
                 null,
                 VideoStandard.PAL,
                 VideoDefinition.HD,
-                new VideoClip[0]));
+                new List<VideoClip>()));
         }
 
         [Fact]
@@ -37,7 +38,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
                 "Test 001 description",
                 VideoStandard.PAL,
                 VideoDefinition.HD,
-                new VideoClip[0]));
+                new List<VideoClip>()));
 
 
             Assert.True(new ShowReel(
@@ -45,7 +46,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
                     "Test 001 description",
                     VideoStandard.PAL,
                     VideoDefinition.HD,
-                    new VideoClip[1] {
+                    new List<VideoClip>() {
                         new VideoClip(
                         "Clip001",
                         "clip description",
@@ -65,7 +66,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
                    "Test 001 description",
                    VideoStandard.PAL,
                    VideoDefinition.HD,
-                   new VideoClip[1] {
+                   new List<VideoClip>() {
                     new VideoClip(
                         "Clip001",
                         "clip description",
@@ -85,7 +86,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
                 "Test 001 description",
                 VideoStandard.PAL,
                 VideoDefinition.HD,
-                new VideoClip[2] {
+                new List<VideoClip>() {
                     new VideoClip(
                         "Clip001",
                         "clip description",
@@ -108,7 +109,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
                 "Test 001 description",
                 VideoStandard.PAL,
                 VideoDefinition.HD,
-                new VideoClip[1] {
+                new List<VideoClip>() {
                     new VideoClip(
                         "Clip001",
                         "clip description",
@@ -136,7 +137,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
                 "Test 001 description",
                 VideoStandard.PAL,
                 VideoDefinition.HD,
-                new VideoClip[2] {
+                new List<VideoClip>() {
                     new VideoClip(
                         "Clip001",
                         "clip description",
@@ -159,7 +160,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
                 "Test 001 description",
                 VideoStandard.PAL,
                 VideoDefinition.HD,
-                new VideoClip[1] {
+                new List<VideoClip>() {
                     new VideoClip(
                         "Clip001",
                         "clip description",
@@ -187,7 +188,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
                 "Test 001 description",
                 VideoStandard.PAL,
                 VideoDefinition.HD,
-                new VideoClip[1] {
+                new List<VideoClip>() {
                     new VideoClip(
                         "Clip001",
                         "clip description",
@@ -197,7 +198,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
                         new TimeCode(2,2,2,2,10)),
                 });
 
-            Assert.True(showReel.VideoClips.Length == 1);
+            Assert.True(showReel.VideoClips.Count == 1);
 
             showReel.AddClip(
                     new VideoClip(
@@ -210,7 +211,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
                     )
                 );
 
-            Assert.True(showReel.VideoClips.Length == 2);
+            Assert.True(showReel.VideoClips.Count == 2);
         }
     }
 }

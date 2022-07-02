@@ -24,6 +24,12 @@ namespace TelepathyLabs.ShowReels.Domain
                 throw new Exception("Hour, Minute, Second and Frame parameters should be positive.");
             }
 
+            if (minutes >= 60 || seconds >= 60)
+            {
+                // add custom exception
+                throw new Exception("Minute and second parameters should be less than 60.");
+            }
+
             Hours = hours;
             Minutes = minutes;
             Seconds = seconds;
@@ -46,11 +52,8 @@ namespace TelepathyLabs.ShowReels.Domain
 
         public TimeCode Add(TimeCode timeCode)
         {
-            if (timeCode.FramesPerSecond != FramesPerSecond)
-            {
-                // add custom exception
-                throw new Exception("Frame rates doesn't match.");
-            }
+            AssertFrameRate(this, timeCode);
+
             var totalFrames = Frames + timeCode.Frames;
             var framesToPromote = totalFrames / FramesPerSecond;
             var frames = totalFrames % FramesPerSecond;
@@ -83,46 +86,39 @@ namespace TelepathyLabs.ShowReels.Domain
 
         public static bool operator <(TimeCode a, TimeCode b)
         {
-            if (a.FramesPerSecond != b.FramesPerSecond)
-            {
-                // add custom exception
-                throw new Exception("Frame rates doesn't match.");
-            }
+            AssertFrameRate(a, b);
 
             return a.TotalFrames < b.TotalFrames;
         }
 
         public static bool operator >(TimeCode a, TimeCode b)
         {
-            if (a.FramesPerSecond != b.FramesPerSecond)
-            {
-                // add custom exception
-                throw new Exception("Frame rates doesn't match.");
-            }
+            AssertFrameRate(a, b);
 
             return a.TotalFrames > b.TotalFrames;
         }
 
         public static bool operator >=(TimeCode a, TimeCode b)
         {
-            if (a.FramesPerSecond != b.FramesPerSecond)
-            {
-                // add custom exception
-                throw new Exception("Frame rates doesn't match.");
-            }
+            AssertFrameRate(a, b);
 
             return a.TotalFrames >= b.TotalFrames;
         }
 
         public static bool operator <=(TimeCode a, TimeCode b)
         {
+            AssertFrameRate(a, b);
+
+            return a.TotalFrames <= b.TotalFrames;
+        }
+
+        private static void AssertFrameRate(TimeCode a, TimeCode b)
+        {
             if (a.FramesPerSecond != b.FramesPerSecond)
             {
                 // add custom exception
                 throw new Exception("Frame rates doesn't match.");
             }
-
-            return a.TotalFrames <= b.TotalFrames;
         }
     }
 }
