@@ -8,10 +8,14 @@ namespace TelepathyLabs.ShowReels.Api.Controllers
     public class ShowReelController : ControllerBase
     {
         private readonly CreateShowReelHandler _createShowReelHandler;
+        private readonly GetShowReelsHandler _getShowReelsHandler;
 
-        public ShowReelController(CreateShowReelHandler createShowReelHandler)
+        public ShowReelController(
+            CreateShowReelHandler createShowReelHandler,
+            GetShowReelsHandler getShowReelsHandler)
         {
             _createShowReelHandler = createShowReelHandler;
+            _getShowReelsHandler = getShowReelsHandler;
         }
         
         // async Task return type
@@ -33,6 +37,13 @@ namespace TelepathyLabs.ShowReels.Api.Controllers
                 errorResponse.StatusCode = 500;
                 return errorResponse;
             }
+        }
+
+        [HttpGet]
+        public ObjectResult Get()
+        {
+            var response = _getShowReelsHandler.Handle();
+            return new ObjectResult(response);
         }
     }
 }

@@ -29,7 +29,17 @@ namespace TelepathyLabs.ShowReels.DataAccess
 
         public IEnumerable<ShowReel> Get()
         {
-            throw new NotImplementedException();
+            var showReels = _dbContext.ShowReels
+                .Where(s => s.Id > 0)
+                .Select(s => new ShowReel(
+                        s.Name,
+                        s.Description,
+                        s.VideoStandard,
+                        s.VideoDefinition,
+                        s.VideoClips
+                    )).ToList();
+
+            return showReels;
         }
     }
 }

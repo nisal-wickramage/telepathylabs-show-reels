@@ -15,6 +15,10 @@
     <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
     <None Remove="RequestHandler\" />
     <None Remove="RequestHandlers\CreateShowReels\" />
+    <None Remove="RequestHandlers\GetShowReelsHandler\" />
+    <None Remove="RequestHandlers\Models\" />
+    <None Remove="RequestHandlers\GetVideoDefinitionsHandler\" />
+    <None Remove="RequestHandlers\GetVideoStandardsHandler\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TelepathyLabs.ShowReels.Domain\TelepathyLabs.ShowReels.Domain.csproj">
@@ -27,5 +31,10 @@
   <ItemGroup>
     <Folder Include="RequestHandlers\" />
     <Folder Include="RequestHandlers\CreateShowReels\" />
+    <Folder Include="RequestHandlers\GetShowReelsHandler\" />
+    <Folder Include="RequestHandlers\Models\" />
+    <Folder Include="RequestHandlers\CreateShowReels\" />
+    <Folder Include="RequestHandlers\GetVideoDefinitionsHandler\" />
+    <Folder Include="RequestHandlers\GetVideoStandardsHandler\" />
   </ItemGroup>
 </Project>

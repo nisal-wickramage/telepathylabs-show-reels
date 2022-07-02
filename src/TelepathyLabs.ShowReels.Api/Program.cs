@@ -12,6 +12,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<CreateShowReelHandler>();
+builder.Services.AddTransient<GetShowReelsHandler>();
+builder.Services.AddTransient<GetVideoDefinitionsHandler>();
+builder.Services.AddTransient<GetVideoStandardsHandler>();
 builder.Services.AddTransient<IShowReelRepository, ShowReelRepository>();
 
 builder.Services.AddDbContext<TelepathyLabsDbContext>(options =>
