@@ -11,3 +11,9 @@ Reel has limit 2 hours
 No searches on video clip time codes
 Gaps between clips are allowed  
 
+
+## Next steps
+Integration testing
+Angular unit testing
+Make UI user frendly specially time code part
+

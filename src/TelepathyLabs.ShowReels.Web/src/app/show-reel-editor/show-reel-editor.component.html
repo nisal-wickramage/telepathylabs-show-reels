@@ -1,0 +1,122 @@
+<div class="container px-4">
+    <div class="light row gx-5">
+        <div class="col p-3">
+            <a type="button" class="btn btn-primary" routerLink="/list" routerLinkActive="active"
+                ariaCurrentWhenActive="page">
+                Go Back to Show Reel List
+            </a>
+        </div>
+    </div>
+
+    <form>
+        <div class="row mt-3">
+            <label class="col-2 col-form-label">Show reel name</label>
+            <div class="col-6">
+                <input type="text" class="form-control">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <label class="col-2 col-form-label">Video Definition</label>
+            <div class="col-6">
+                <select class="form-select" aria-label="Video Standard">
+                    <option selected>Select</option>
+                    <option value="1">PAL</option>
+                    <option value="2">NTSC</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <label class="col-2 col-form-label">Video Definition</label>
+            <div class="col-6">
+                <select class="form-select" aria-label="Video Definition">
+                    <option selected>Select</option>
+                    <option value="1">SD</option>
+                    <option value="2">HD</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <label class="col-2 col-form-label">Total Duration</label>
+            <div class="col-6">
+                <input type="text" class="form-control">
+            </div>
+        </div>
+
+        <br><br>
+        <div class="row mt-3">
+            <div class="col-3">
+                <h5>Clips</h5>
+            </div>
+        </div>
+
+        <div class="row p-3 border bg-light">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Clip Name</th>
+                        <th>Clip Description</th>
+                        <th>Video Standard</th>
+                        <th>Video Definition</th>
+                        <th>Start Time Code</th>
+                        <th>End Time Code</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> <input type="text" class="form-control"></td>
+                        <td> <input type="text" class="form-control"></td>
+                        <td>
+                            <select class="form-select" aria-label="Video Standard">
+                                <option selected>Select</option>
+                                <option value="1">PAL</option>
+                                <option value="2">NTSC</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-select" aria-label="Video Definition">
+                                <option selected>Select</option>
+                                <option value="1">SD</option>
+                                <option value="2">HD</option>
+                            </select>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-text">HH:</span>
+                                <input type="text" class="form-control" placeholder="HH" aria-label="Hours">
+                                <span class="input-group-text">MM:</span>
+                                <input type="text" class="form-control" placeholder="MM" aria-label="Minutes">
+                                <span class="input-group-text">ss:</span>
+                                <input type="text" class="form-control" placeholder="ss" aria-label="Seconds">
+                                <span class="input-group-text">ff:</span>
+                                <input type="text" class="form-control" placeholder="ff" aria-label="Frames">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-text">HH:</span>
+                                <input type="text" class="form-control" placeholder="HH" aria-label="Hours">
+                                <span class="input-group-text">MM:</span>
+                                <input type="text" class="form-control" placeholder="MM" aria-label="Minutes">
+                                <span class="input-group-text">ss:</span>
+                                <input type="text" class="form-control" placeholder="ss" aria-label="Seconds">
+                                <span class="input-group-text">ff:</span>
+                                <input type="text" class="form-control" placeholder="ff" aria-label="Frames">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-2">
+                <button type="button" class="btn btn-secondary">Add Clip</button>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-5">Submit</button>
+    </form>
+
+</div>
