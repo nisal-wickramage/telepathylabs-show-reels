@@ -12,20 +12,33 @@ namespace TelepathyLabs.ShowReels.Api.RequestHandlers
         }
         public ShowReelResponse Handle(ShowReelRequest request)
         {
+            var videoClips = request.VideoClips.Select(v =>
+            new VideoClip(
+                    v.Name,
+                    v.Description,
+                    v.VideoStandard,
+                    v.VideoDefinition,
+                    new TimeCode(
+                        v.StartTimeCode.Hours,
+                        v.StartTimeCode.Minutes,
+                        v.StartTimeCode.Seconds,
+                        v.StartTimeCode.Frames,
+                        FrameRates.values[v.VideoStandard]
+                        ),
+                    new TimeCode(
+                        v.EndTimeCode.Hours,
+                        v.EndTimeCode.Minutes,
+                        v.EndTimeCode.Seconds,
+                        v.EndTimeCode.Frames,
+                        FrameRates.values[v.VideoStandard]
+                        )
+                )).ToList();
             var showReel = new ShowReel(
-                "ShowReel001",
-                "Test 001 description",
-                VideoStandard.PAL,
-                VideoDefinition.HD,
-                new List<VideoClip>() {
-                    new VideoClip(
-                        "Clip001",
-                        "clip description",
-                        VideoStandard.PAL,
-                        VideoDefinition.HD,
-                        new TimeCode(1,1,1,1,10),
-                        new TimeCode(2,2,2,2,10)),
-                });
+                request.Name,
+                request.Description,
+                request.VideoStandard,
+                request.VideoDefinition,
+                videoClips);
 
             _showReelRepository.Create(showReel);
             return new ShowReelResponse();
