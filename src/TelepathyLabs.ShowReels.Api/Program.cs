@@ -2,6 +2,7 @@
 using TelepathyLabs.ShowReels.Api.RequestHandlers;
 using TelepathyLabs.ShowReels.DataAccess;
 using TelepathyLabs.ShowReels.Domain;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,9 +18,9 @@ builder.Services.AddTransient<GetVideoDefinitionsHandler>();
 builder.Services.AddTransient<GetVideoStandardsHandler>();
 builder.Services.AddTransient<IShowReelRepository, ShowReelRepository>();
 
+var connectionString = builder.Configuration.GetConnectionString("ShowReelsConnection");
 builder.Services.AddDbContext<TelepathyLabsDbContext>(options =>
-    options.UseNpgsql("Host=localhost;Database=ShowReels;Username=evoting;Password=evotingadmin"));
-
+    options.UseNpgsql(connectionString));
 
 var app = builder.Build();
 
