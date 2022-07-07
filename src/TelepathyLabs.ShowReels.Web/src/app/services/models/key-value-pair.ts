@@ -1,10 +1,10 @@
 export class KeyValuePair {
     
-    constructor() {
-      this.key = 0;
-      this.value = '';
+    constructor(key: number, value: string) {
+      this.Key = key;
+      this.Value = value;
     }
 
-    key: number;
-    value: string;
+    Key: number;
+    Value: string;
   }

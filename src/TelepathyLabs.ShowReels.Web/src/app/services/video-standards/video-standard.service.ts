@@ -9,6 +9,8 @@ import { KeyValuePair } from './../models/key-value-pair';
 })
 export class VideoStandardService {
   private showReelsApiUrl: string = config.ShowReelsApiUrl;
+
+  
   
   constructor(private httpClient: HttpClient) { 
   }

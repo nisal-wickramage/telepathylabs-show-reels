@@ -14,11 +14,11 @@
               </tr>
               <tr>
                 <th scope="row">Video Standard</th>
-                <td>{{showReel?.VideoStandard}}</td>
+                <td>{{getVideoDefinition(showReel?.VideoStandard)}}</td>
               </tr>
               <tr>
                 <th scope="row">Video Definition</th>
-                <td>{{showReel?.VideoDefinition}}</td>
+                <td>{{getVideoStandard(showReel?.VideoDefinition)}}</td>
               </tr>
               <tr>
                 <th scope="row">Total Duration</th>
@@ -44,8 +44,8 @@
                 <tr *ngFor="let videoClip of showReel?.VideoClips">
                   <td>{{videoClip?.Name}}</td>
                   <td>{{videoClip?.Description}}</td>
-                  <td>{{videoClip?.VideoStandard}}</td>
-                  <td>{{videoClip?.VideoDefinition}}</td>
+                  <td>{{getVideoStandard(videoClip?.VideoStandard)}}</td>
+                  <td>{{getVideoDefinition(videoClip?.VideoDefinition)}}</td>
                   <td>{{videoClip?.StartTimeCode?.ToString }}</td>
                   <td>{{videoClip?.EndTimeCode?.ToString }}</td>
                 </tr>

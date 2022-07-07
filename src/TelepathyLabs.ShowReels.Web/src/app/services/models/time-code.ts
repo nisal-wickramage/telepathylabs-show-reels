@@ -102,8 +102,7 @@ export class TimeCode {
     }
 
     public get ToString() {
-        return `${String(this.hours).padStart(2, "0")}:${String(this.minutes).padStart(2, "0")}:
-        ${String(this.seconds).padStart(2, "0")}:${String(this.frames).padStart(2, "0")}`;
+        return `${String(this.hours).padStart(2, "0")}:${String(this.minutes).padStart(2, "0")}:${String(this.seconds).padStart(2, "0")}:${String(this.frames).padStart(2, "0")}`;
     }
 
     private AssertFrameRate(a: TimeCode,b: TimeCode)
