@@ -8,31 +8,31 @@
         </div>
     </div>
 
-    <form>
+    <form [formGroup]="showReelForm" (ngSubmit)="onSubmit()">
         <div class="row mt-3">
-            <label class="col-2 col-form-label">Show reel name</label>
+            <label for="name" class="col-2 col-form-label">Show Reel name</label>
             <div class="col-6">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" formControlName="name">
             </div>
         </div>
         <div class="row mt-3">
-            <label class="col-2 col-form-label">Video Definition</label>
+            <label for="videoDefinition" class="col-2 col-form-label">Video Definition</label>
             <div class="col-6">
-                <select class="form-select" aria-label="Video Standard">
-                    <option selected>Select</option>
-                    <option value="1">PAL</option>
-                    <option value="2">NTSC</option>
+                <select class="form-select" aria-label="Video Definition" formControlName="videoDefinition">
+                    <option selected value="0">Select</option>
+                    <option *ngFor="let videoDefinition of videoDefinitions" value="{{videoDefinition.Key}}">
+                        {{videoDefinition.Value}}</option>
                 </select>
             </div>
         </div>
 
         <div class="row mt-3">
-            <label class="col-2 col-form-label">Video Definition</label>
+            <label for="videoStandard" class="col-2 col-form-label">Video Standard</label>
             <div class="col-6">
-                <select class="form-select" aria-label="Video Definition">
-                    <option selected>Select</option>
-                    <option value="1">SD</option>
-                    <option value="2">HD</option>
+                <select class="form-select" aria-label="Video Standard" formControlName="videoStandard">
+                    <option selected value="0">Select</option>
+                    <option *ngFor="let videoStandard of videoStandards" value="{{videoStandard.Key}}">
+                        {{videoStandard.Value}}</option>
                 </select>
             </div>
         </div>
@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <div class="row p-3 border bg-light">
+        <div formArrayName="videoClips" class="row p-3 border bg-light">
             <table class="table">
                 <thead>
                     <tr>
@@ -64,47 +64,51 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td> <input type="text" class="form-control"></td>
-                        <td> <input type="text" class="form-control"></td>
+                    <tr *ngFor="let videoClip of videoClips.controls; let i = index" [formGroupName]="i">
+                        <td> <input id="videoClipName-{{i}}" formControlName="clipName" type="text"
+                                class="form-control"></td>
+                        <td> <input id="videoClipDescription-{{i}}" formControlName="clipDescription" type="text"
+                                class="form-control"></td>
                         <td>
-                            <select class="form-select" aria-label="Video Standard">
-                                <option selected>Select</option>
-                                <option value="1">PAL</option>
-                                <option value="2">NTSC</option>
+                            <select id="clipVideoStandard-{{i}}" class="form-select" aria-label="Video Standard" formControlName="clipVideoStandard">
+                                <option selected value="0">Select</option>
+                                <option *ngFor="let videoStandard of videoStandards" value="{{videoStandard.Key}}">
+                                    {{videoStandard.Value}}</option>
                             </select>
                         </td>
                         <td>
-                            <select class="form-select" aria-label="Video Definition">
-                                <option selected>Select</option>
-                                <option value="1">SD</option>
-                                <option value="2">HD</option>
+                            <select id="clipVideoDefinition-{{i}}" class="form-select" aria-label="Video Definition"
+                                formControlName="clipVideoDefinition">
+                                <option selected value="0">Select</option>
+                                <option *ngFor="let videoDefinition of videoDefinitions"
+                                    value="{{videoDefinition.Key}}">{{videoDefinition.Value}}</option>
                             </select>
                         </td>
                         <td>
                             <div class="input-group">
                                 <span class="input-group-text">HH:</span>
-                                <input type="text" class="form-control" placeholder="HH" aria-label="Hours">
+                                <input id="clipStartTimeCodeHours-{{i}}" formControlName="clipStartTimeCodeHours" type="text" class="form-control" placeholder="HH" aria-label="Hours">
                                 <span class="input-group-text">MM:</span>
-                                <input type="text" class="form-control" placeholder="MM" aria-label="Minutes">
+                                <input id="clipStartTimeCodeMinutes-{{i}}" formControlName="clipStartTimeCodeMinutes" type="text" class="form-control" placeholder="MM" aria-label="Minutes">
                                 <span class="input-group-text">ss:</span>
-                                <input type="text" class="form-control" placeholder="ss" aria-label="Seconds">
+                                <input id="clipStartTimeCodeSeconds-{{i}}" formControlName="clipStartTimeCodeSeconds" type="text" class="form-control" placeholder="ss" aria-label="Seconds">
                                 <span class="input-group-text">ff:</span>
-                                <input type="text" class="form-control" placeholder="ff" aria-label="Frames">
+                                <input id="clipStartTimeCodeFrames-{{i}}" formControlName="clipStartTimeCodeFrames" type="text" class="form-control" placeholder="ff" aria-label="Frames">
                             </div>
                         </td>
                         <td>
                             <div class="input-group">
                                 <span class="input-group-text">HH:</span>
-                                <input type="text" class="form-control" placeholder="HH" aria-label="Hours">
+                                <input id="clipEndTimeCodeHours-{{i}}" formControlName="clipEndTimeCodeHours" type="text" class="form-control" placeholder="HH" aria-label="Hours">
                                 <span class="input-group-text">MM:</span>
-                                <input type="text" class="form-control" placeholder="MM" aria-label="Minutes">
+                                <input id="clipEndTimeCodeMinutes-{{i}}" formControlName="clipEndTimeCodeMinutes" type="text" class="form-control" placeholder="MM" aria-label="Minutes">
                                 <span class="input-group-text">ss:</span>
-                                <input type="text" class="form-control" placeholder="ss" aria-label="Seconds">
+                                <input id="clipEndTimeCodeSeconds-{{i}}" formControlName="clipEndTimeCodeSeconds" type="text" class="form-control" placeholder="ss" aria-label="Seconds">
                                 <span class="input-group-text">ff:</span>
-                                <input type="text" class="form-control" placeholder="ff" aria-label="Frames">
+                                <input id="clipEndTimeCodeFrames-{{i}}" formControlName="clipEndTimeCodeFrames" type="text" class="form-control" placeholder="ff" aria-label="Frames">
                             </div>
                         </td>
+                        <td><button type="button" class="btn btn-warn" (click)="removeClip(i)">X</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -112,11 +116,10 @@
 
         <div class="row mt-3">
             <div class="col-2">
-                <button type="button" class="btn btn-secondary">Add Clip</button>
+                <button type="button" class="btn btn-secondary" (click)="AddClip()">Add Clip</button>
             </div>
         </div>
-
-        <button type="submit" class="btn btn-primary mt-5">Submit</button>
+        <button type="submit" class="btn btn-primary mt-5" [disabled]="!showReelForm.valid">Submit</button>
     </form>
 
 </div>

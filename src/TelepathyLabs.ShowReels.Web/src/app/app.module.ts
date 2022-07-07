@@ -8,6 +8,7 @@ import { ShowReelInformationComponent } from './components/show-reel-information
 import { ShowReelEditorComponent } from './components/show-reel-editor/show-reel-editor.component';
 import { TimeCodeComponent } from './components/time-code/time-code.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
