@@ -10,9 +10,15 @@
 
     <form [formGroup]="showReelForm" (ngSubmit)="onSubmit()">
         <div class="row mt-3">
-            <label for="name" class="col-2 col-form-label">Show Reel name</label>
+            <label for="name" class="col-2 col-form-label">Show Reel Name</label>
             <div class="col-6">
                 <input type="text" class="form-control" formControlName="name">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <label for="description" class="col-2 col-form-label">Show Reel Description</label>
+            <div class="col-6">
+                <input type="text" class="form-control" formControlName="description">
             </div>
         </div>
         <div class="row mt-3">
