@@ -5,11 +5,12 @@ namespace TelepathyLabs.ShowReels.Api.RequestHandlers
 {
     public class GetVideoDefinitionsHandler
     {
-        public Dictionary<int, string> Handle()
+        public List<KeyValuePair<int, string>> Handle()
         {
             var values = Enum.GetValues(typeof(VideoDefinition))
-                .Cast<VideoDefinition>().
-                ToDictionary(v => (int)v, v => v.ToString());
+                .Cast<VideoDefinition>()
+                .Select(v => new KeyValuePair<int, string>((int)v, v.ToString()))
+                .ToList();
 
             return values;
         }

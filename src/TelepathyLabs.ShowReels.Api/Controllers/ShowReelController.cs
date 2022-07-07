@@ -18,7 +18,6 @@ namespace TelepathyLabs.ShowReels.Api.Controllers
             _getShowReelsHandler = getShowReelsHandler;
         }
         
-        // async Task return type
         [HttpPost]
         public ObjectResult Post(ShowReelRequest request)
         {

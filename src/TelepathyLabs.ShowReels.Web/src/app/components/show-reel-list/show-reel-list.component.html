@@ -13,8 +13,9 @@
       </div>
     </div>
   
-    <app-show-reel-information></app-show-reel-information>
-
-    <app-show-reel-information></app-show-reel-information>
-  
+<div class="row" *ngFor="let showReel of showReels">
+  <app-show-reel-information [showReel]="showReel"></app-show-reel-information>
+</div>
+    
+    
 </div>

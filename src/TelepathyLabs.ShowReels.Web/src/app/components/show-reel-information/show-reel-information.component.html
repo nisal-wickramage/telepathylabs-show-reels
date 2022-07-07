@@ -6,19 +6,23 @@
             <tbody>
               <tr>
                 <th scope="row">Show Reel Name</th>
-                <td scope="row">First</td>
+                <td scope="row">{{showReel?.Name}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Show Reel Description</th>
+                <td scope="row">{{showReel?.Description}}</td>
               </tr>
               <tr>
                 <th scope="row">Video Standard</th>
-                <td>Mark</td>
+                <td>{{showReel?.VideoStandard}}</td>
               </tr>
               <tr>
                 <th scope="row">Video Definition</th>
-                <td>Jacob</td>
+                <td>{{showReel?.VideoDefinition}}</td>
               </tr>
               <tr>
                 <th scope="row">Total Duration</th>
-                <td colspan="2">Larry the Bird</td>
+                <td colspan="2">{{showReel?.TotalDuration }}</td>
               </tr>
             </tbody>
           </table>
@@ -37,13 +41,13 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Clip Name</td>
-                  <td>Clip Description</td>
-                  <td>Video Standard</td>
-                  <td>Video Definition</td>
-                  <td>Start Time Code</td>
-                  <td>End Time Code</td>
+                <tr *ngFor="let videoClip of showReel?.VideoClips">
+                  <td>{{videoClip?.Name}}</td>
+                  <td>{{videoClip?.Description}}</td>
+                  <td>{{videoClip?.VideoStandard}}</td>
+                  <td>{{videoClip?.VideoDefinition}}</td>
+                  <td>{{videoClip?.StartTimeCode?.ToString }}</td>
+                  <td>{{videoClip?.EndTimeCode?.ToString }}</td>
                 </tr>
               </tbody>
             </table>
