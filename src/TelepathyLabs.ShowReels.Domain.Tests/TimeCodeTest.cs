@@ -15,23 +15,23 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
         [Fact]
         public void AllParametersShouldBePositive()
         {
-            Assert.Throws<Exception>(() => new TimeCode(1, 1, 1, -1, framesPerSecondForPAL));
-            Assert.Throws<Exception>(() => new TimeCode(1, 1, -1, 1, framesPerSecondForPAL));
-            Assert.Throws<Exception>(() => new TimeCode(1, -1, 1, 1, framesPerSecondForPAL));
-            Assert.Throws<Exception>(() => new TimeCode(-1, 1, 1, 1, framesPerSecondForPAL));
+            Assert.Throws<ShowReelsException>(() => new TimeCode(1, 1, 1, -1, framesPerSecondForPAL));
+            Assert.Throws<ShowReelsException>(() => new TimeCode(1, 1, -1, 1, framesPerSecondForPAL));
+            Assert.Throws<ShowReelsException>(() => new TimeCode(1, -1, 1, 1, framesPerSecondForPAL));
+            Assert.Throws<ShowReelsException>(() => new TimeCode(-1, 1, 1, 1, framesPerSecondForPAL));
         }
 
         [Fact]
         public void FrameRateShouldBeGreaterThan1()
         {
-            Assert.Throws<Exception>(() => new TimeCode(1, 1, 1, 1, 0));
-            Assert.Throws<Exception>(() => new TimeCode(1, 1, 1, 1, 1));
+            Assert.Throws<ShowReelsException>(() => new TimeCode(1, 1, 1, 1, 0));
+            Assert.Throws<ShowReelsException>(() => new TimeCode(1, 1, 1, 1, 1));
         }
 
         [Fact]
         public void NumberOfFramesShouldBeLessThanFramesPerSecond()
         {
-            Assert.Throws<Exception>(() => new TimeCode(1, 1, 1, 30, framesPerSecondForNTSC));
+            Assert.Throws<ShowReelsException>(() => new TimeCode(1, 1, 1, 30, framesPerSecondForNTSC));
             Assert.True(new TimeCode(1, 1, 1, framesPerSecondForNTSC - 1, framesPerSecondForNTSC) != null);
         }
 
@@ -61,7 +61,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
             var timeCode1 = new TimeCode(1, 1, 1, 1, framesPerSecondForNTSC);
             var timeCode2 = new TimeCode(1, 1, 1, 1, framesPerSecondForPAL);
 
-            Assert.Throws<Exception>(() => timeCode1.Add(timeCode2));
+            Assert.Throws<ShowReelsException>(() => timeCode1.Add(timeCode2));
         }
 
         [Fact]
@@ -80,8 +80,8 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
             var timeCode1 = new TimeCode(1, 1, 1, 1, framesPerSecondForPAL);
             var timeCode2 = new TimeCode(2, 1, 1, 1, framesPerSecondForNTSC);
 
-            Assert.Throws<Exception>(() => timeCode1 < timeCode2);
-            Assert.Throws<Exception>(() => timeCode2 > timeCode1);
+            Assert.Throws<ShowReelsException>(() => timeCode1 < timeCode2);
+            Assert.Throws<ShowReelsException>(() => timeCode2 > timeCode1);
         }
     }
 }

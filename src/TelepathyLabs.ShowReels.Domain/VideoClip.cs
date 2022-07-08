@@ -12,32 +12,32 @@
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                throw new Exception("Name cannot be null or empty.");
+                throw new ShowReelsException("Name cannot be null or empty.");
             }
 
             if (string.IsNullOrWhiteSpace(description))
             {
-                throw new Exception("Description cannot be null or empty.");
+                throw new ShowReelsException("Description cannot be null or empty.");
             }
 
             if (startTimeCode == null)
             {
-                throw new Exception("Start timecode cannot be null.");
+                throw new ShowReelsException("Start timecode cannot be null.");
             }
 
             if (endTimeCode == null)
             {
-                throw new Exception("End timecode cannot be null.");
+                throw new ShowReelsException("End timecode cannot be null.");
             }
 
             if (startTimeCode.FramesPerSecond != endTimeCode.FramesPerSecond)
             {
-                throw new Exception("Frame rates for start time and end time should match.");
+                throw new ShowReelsException("Frame rates for start time and end time should match.");
             }
 
             if (startTimeCode > endTimeCode)
             {
-                throw new Exception("Start time should be smaller than end time.");
+                throw new ShowReelsException("Start time should be smaller than end time.");
             }
 
             Name = name;

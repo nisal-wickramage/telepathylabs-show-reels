@@ -17,7 +17,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
         [Fact]
         public void AllConstructorParametersShouldNotBeNullOrWhiteSpace()
         {
-            Assert.Throws<Exception>(() => new VideoClip(
+            Assert.Throws<ShowReelsException>(() => new VideoClip(
                 "Test001",
                 "Test 001 description",
                 VideoStandard.PAL,
@@ -25,7 +25,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
                 new TimeCode(1, 1, 1, 1, framesPerSecondForNTSC),
                 null));
 
-            Assert.Throws<Exception>(() => new VideoClip(
+            Assert.Throws<ShowReelsException>(() => new VideoClip(
                 "Test001",
                 "Test 001 description",
                 VideoStandard.PAL,
@@ -33,7 +33,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
                 null,
                 new TimeCode(1, 1, 1, 1, framesPerSecondForNTSC)));
 
-            Assert.Throws<Exception>(() => new VideoClip(
+            Assert.Throws<ShowReelsException>(() => new VideoClip(
                 "Test001",
                 null,
                 VideoStandard.PAL,
@@ -41,7 +41,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
                 new TimeCode(1, 1, 1, 1, framesPerSecondForNTSC),
                 new TimeCode(2, 1, 1, 1, framesPerSecondForNTSC)));
 
-            Assert.Throws<Exception>(() => new VideoClip(
+            Assert.Throws<ShowReelsException>(() => new VideoClip(
                 null,
                 "Test 001 description",
                 VideoStandard.PAL,
@@ -61,7 +61,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
         [Fact]
         public void EndTimeCodeShouldBeGreaterThanStartTimeCode()
         {
-            Assert.Throws<Exception>(() => new VideoClip(
+            Assert.Throws<ShowReelsException>(() => new VideoClip(
                 "Test001",
                 "Test 001 description",
                 VideoStandard.PAL,
@@ -73,7 +73,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
         [Fact]
         public void StartTimeCodeAndEndTimeCodeShouldHaveSameFramesPerSecond()
         {
-            Assert.Throws<Exception>(() => new VideoClip(
+            Assert.Throws<ShowReelsException>(() => new VideoClip(
                 "Test001",
                 "Test 001 description",
                 VideoStandard.PAL,

@@ -6,26 +6,22 @@
         {
             if (frames >= framesPerSecond)
             {
-                // add custom exception
-                throw new Exception("Frames should be less than frame rate.");
+                throw new ShowReelsException("Frames should be less than frame rate.");
             }
 
             if (framesPerSecond <= 1)
             {
-                // add custom exception
-                throw new Exception("Frame rate should be greater than 1");
+                throw new ShowReelsException("Frame rate should be greater than 1");
             }
 
             if (hours < 0 || minutes < 0 || seconds < 0 || frames < 0)
             {
-                // add custom exception
-                throw new Exception("Hour, Minute, Second and Frame parameters should be positive.");
+                throw new ShowReelsException("Hour, Minute, Second and Frame parameters should be positive.");
             }
 
             if (minutes >= 60 || seconds >= 60)
             {
-                // add custom exception
-                throw new Exception("Minute and second parameters should be less than 60.");
+                throw new ShowReelsException("Minute and second parameters should be less than 60.");
             }
 
             Hours = hours;
@@ -114,8 +110,7 @@
         {
             if (a.FramesPerSecond != b.FramesPerSecond)
             {
-                // add custom exception
-                throw new Exception("Frame rates doesn't match.");
+                throw new ShowReelsException("Frame rates doesn't match.");
             }
         }
     }

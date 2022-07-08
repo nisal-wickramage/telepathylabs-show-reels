@@ -15,14 +15,14 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
         [Fact]
         public void AllConstructorParametersShouldNotBeNullOrWhiteSpace()
         {
-            Assert.Throws<Exception>(() => new ShowReel(
+            Assert.Throws<ShowReelsException>(() => new ShowReel(
                 null,
                 "Test 001 description",
                 VideoStandard.PAL,
                 VideoDefinition.HD,
                 new List<VideoClip>()));
 
-            Assert.Throws<Exception>(() => new ShowReel(
+            Assert.Throws<ShowReelsException>(() => new ShowReel(
                 "ShowReel001",
                 null,
                 VideoStandard.PAL,
@@ -33,7 +33,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
         [Fact]
         public void ShowReelShouldAtleastHaveOneVideoClip()
         {
-            Assert.Throws<Exception>(() => new ShowReel(
+            Assert.Throws<ShowReelsException>(() => new ShowReel(
                 "ShowReel001",
                 "Test 001 description",
                 VideoStandard.PAL,
@@ -61,7 +61,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
         [Fact]
         public void VideoClipShouldHaveTheSameVideoStandard()
         {
-            Assert.Throws<Exception>(() => new ShowReel(
+            Assert.Throws<ShowReelsException>(() => new ShowReel(
                    "ShowReel001",
                    "Test 001 description",
                    VideoStandard.PAL,
@@ -81,7 +81,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
         public void AllClipsInShowReelShouldHaveSameVideoDefinition()
         {
 
-            Assert.Throws<Exception>(() => new ShowReel(
+            Assert.Throws<ShowReelsException>(() => new ShowReel(
                 "ShowReel001",
                 "Test 001 description",
                 VideoStandard.PAL,
@@ -119,7 +119,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
                         new TimeCode(2,2,2,1,2)),
                 });
 
-            Assert.Throws<Exception>(() => showReel.AddClip(
+            Assert.Throws<ShowReelsException>(() => showReel.AddClip(
                     new VideoClip(
                         "Clip002",
                         "clip description",
@@ -132,7 +132,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
         [Fact]
         public void ClipsShouldNotOverlap()
         {
-            Assert.Throws<Exception>(() => new ShowReel(
+            Assert.Throws<ShowReelsException>(() => new ShowReel(
                 "ShowReel001",
                 "Test 001 description",
                 VideoStandard.PAL,
@@ -170,7 +170,7 @@ namespace TelepathyLabs.ShowReels.Domain.Tests
                         new TimeCode(2,2,2,1,2)),
                 });
 
-            Assert.Throws<Exception>(() => showReel.AddClip(
+            Assert.Throws<ShowReelsException>(() => showReel.AddClip(
                     new VideoClip(
                         "Clip002",
                         "clip description",

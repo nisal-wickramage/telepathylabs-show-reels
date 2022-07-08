@@ -14,17 +14,17 @@
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                throw new Exception("Name cannot be null or empty.");
+                throw new ShowReelsException("Name cannot be null or empty.");
             }
 
             if (string.IsNullOrWhiteSpace(description))
             {
-                throw new Exception("Description cannot be null or empty.");
+                throw new ShowReelsException("Description cannot be null or empty.");
             }
 
             if (videoClips == null || videoClips.Count < 1)
             {
-                throw new Exception("Atleast on video clip is required.");
+                throw new ShowReelsException("Atleast on video clip is required.");
             }
 
             var isVideoStandardnNotConsistant =
@@ -32,7 +32,7 @@
 
             if (isVideoStandardnNotConsistant)
             {
-                throw new Exception("All video clips should be in same video standard as the show reel.");
+                throw new ShowReelsException("All video clips should be in same video standard as the show reel.");
             }
 
             var isVideoDefinitionNotConsistant =
@@ -40,14 +40,14 @@
 
             if (isVideoDefinitionNotConsistant)
             {
-                throw new Exception("All video clips should be in same video definition as the show reel.");
+                throw new ShowReelsException("All video clips should be in same video definition as the show reel.");
             }
 
             for (int x = 1; x < videoClips.Count; x++)
             {
                 if (videoClips[x - 1].EndTimeCode >= videoClips[x].StartTimeCode)
                 {
-                    throw new Exception("Video clips cannot overlap.");
+                    throw new ShowReelsException("Video clips cannot overlap.");
                 }
             }
 
@@ -75,15 +75,15 @@
         {
             if (videoClip.VideoStandard != VideoStandard)
             {
-                throw new Exception("Clip should be in same video standard as the show reel.");
+                throw new ShowReelsException("Clip should be in same video standard as the show reel.");
             }
             if (videoClip.VideoDefinition != VideoDefinition)
             {
-                throw new Exception("Clip should be in same video definition as the show reel.");
+                throw new ShowReelsException("Clip should be in same video definition as the show reel.");
             }
             if (VideoClips.Last().EndTimeCode >= videoClip.StartTimeCode)
             {
-                throw new Exception("Video clips cannot overlap.");
+                throw new ShowReelsException("Video clips cannot overlap.");
             }
 
             VideoClips.Add(videoClip);

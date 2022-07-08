@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using TelepathyLabs.ShowReels.Api.RequestHandlers;
+using TelepathyLabs.ShowReels.Domain;
 
 namespace TelepathyLabs.ShowReels.Api.Controllers
 {
@@ -26,7 +27,7 @@ namespace TelepathyLabs.ShowReels.Api.Controllers
                 var response = _createShowReelHandler.Handle(request);
                 return new ObjectResult(response);
             }
-            catch (NotImplementedException ex)
+            catch (ShowReelsException ex)
             {
                 return new BadRequestObjectResult(ex.Message);
             }
@@ -41,8 +42,17 @@ namespace TelepathyLabs.ShowReels.Api.Controllers
         [HttpGet]
         public ObjectResult Get()
         {
-            var response = _getShowReelsHandler.Handle();
-            return new ObjectResult(response);
+            try
+            {
+                var response = _getShowReelsHandler.Handle();
+                return new ObjectResult(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new ObjectResult("Unknown error occured. Please try again or contact administrator.");
+                errorResponse.StatusCode = 500;
+                return errorResponse;
+            }
         }
     }
 }
