@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TelepathyLabs.ShowReels.Domain
+﻿namespace TelepathyLabs.ShowReels.Domain
 {
     public class TimeCode
     {

@@ -29,6 +29,8 @@ namespace TelepathyLabs.ShowReels.DataAccess
 
         public IEnumerable<ShowReel> Get()
         {
+            _dbContext.Database.EnsureCreated();
+
             var showReels = _dbContext.ShowReels
                 .Where(s => s.Id > 0)
                 .Select(s => new ShowReel(

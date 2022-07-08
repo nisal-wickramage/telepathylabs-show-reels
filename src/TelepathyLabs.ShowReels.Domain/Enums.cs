@@ -1,5 +1,4 @@
-﻿using System;
-namespace TelepathyLabs.ShowReels.Domain
+﻿namespace TelepathyLabs.ShowReels.Domain
 {
     public enum VideoDefinition {
         SD = 1,

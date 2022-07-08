@@ -20,7 +20,13 @@ builder.Services.AddTransient<GetVideoDefinitionsHandler>();
 builder.Services.AddTransient<GetVideoStandardsHandler>();
 builder.Services.AddTransient<IShowReelRepository, ShowReelRepository>();
 
-var connectionString = builder.Configuration.GetConnectionString("ShowReelsConnection");
+
+var connectionString = Environment.GetEnvironmentVariable("ShowReelsConnection");
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    connectionString = builder.Configuration.GetConnectionString("ShowReelsConnection");
+}
+
 builder.Services.AddDbContext<TelepathyLabsDbContext>(options =>
     options.UseNpgsql(connectionString));
 
@@ -35,7 +41,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(a => a.AllowAnyOrigin().AllowAnyOrigin().AllowAnyHeader()) ;
+app.UseCors(a => a.WithOrigins("http://localhost:4200", "http://localhost:5002").AllowAnyMethod().AllowAnyHeader()) ;
 
 app.UseHttpsRedirection();
 

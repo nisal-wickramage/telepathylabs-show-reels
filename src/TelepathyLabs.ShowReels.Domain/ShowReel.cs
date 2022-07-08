@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace TelepathyLabs.ShowReels.Domain
+﻿namespace TelepathyLabs.ShowReels.Domain
 {
     public class ShowReel
     {

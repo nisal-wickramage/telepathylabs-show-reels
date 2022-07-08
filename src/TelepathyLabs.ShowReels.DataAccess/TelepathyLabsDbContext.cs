@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TelepathyLabs.ShowReels.DataAccess;
 using TelepathyLabs.ShowReels.Domain;
 
 namespace TelepathyLabs.ShowReels.DataAccess;
