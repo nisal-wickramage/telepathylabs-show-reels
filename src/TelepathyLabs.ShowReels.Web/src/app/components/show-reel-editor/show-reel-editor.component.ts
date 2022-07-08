@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 export class ShowReelEditorComponent implements OnInit {
 
   frameRates = new Map<number, number>();
-  totalTime: string;
+  totalTime: TimeCode;
 
   showReelForm = this.formBuilder.group({
     name: ['', [Validators.required]],
@@ -28,14 +28,14 @@ export class ShowReelEditorComponent implements OnInit {
       this.formBuilder.group({
         clipName:[''],
         clipDescription: [''],
-        clipStartTimeCodeHours:['', [Validators.required, Validators.min(0), Validators.max(59)]],
-        clipStartTimeCodeMinutes:['', [Validators.required, Validators.min(0), Validators.max(59)]],
-        clipStartTimeCodeSeconds:['', [Validators.required, Validators.min(0), Validators.max(59)]],
-        clipStartTimeCodeFrames:['', [Validators.required, Validators.min(0), Validators.max(59)]],
-        clipEndTimeCodeHours:['', [Validators.required, Validators.min(0), Validators.max(59)]],
-        clipEndTimeCodeMinutes:['', [Validators.required, Validators.min(0), Validators.max(59)]],
-        clipEndTimeCodeSeconds:['', [Validators.required, Validators.min(0), Validators.max(59)]],
-        clipEndTimeCodeFrames:['', [Validators.required, Validators.min(0), Validators.max(59)]]
+        clipStartTimeCodeHours:['00', [Validators.required, Validators.min(0), Validators.max(59)]],
+        clipStartTimeCodeMinutes:['00', [Validators.required, Validators.min(0), Validators.max(59)]],
+        clipStartTimeCodeSeconds:['00', [Validators.required, Validators.min(0), Validators.max(59)]],
+        clipStartTimeCodeFrames:['00', [Validators.required, Validators.min(0), Validators.max(59)]],
+        clipEndTimeCodeHours:['00', [Validators.required, Validators.min(0), Validators.max(59)]],
+        clipEndTimeCodeMinutes:['00', [Validators.required, Validators.min(0), Validators.max(59)]],
+        clipEndTimeCodeSeconds:['00', [Validators.required, Validators.min(0), Validators.max(59)]],
+        clipEndTimeCodeFrames:['00', [Validators.required, Validators.min(0), Validators.max(59)]]
       })
     ])
   });
@@ -52,7 +52,7 @@ export class ShowReelEditorComponent implements OnInit {
       this.frameRates.set(1, 25);
       this.frameRates.set(2, 30);
 
-      this.totalTime = '00:00:00:00'
+      this.totalTime = new TimeCode(0,0,0,0,2);
      }
 
   ngOnInit(): void {
@@ -71,6 +71,7 @@ export class ShowReelEditorComponent implements OnInit {
     this.showReelForm.get('videoStandard')?.valueChanges.subscribe(v => {
       if(parseInt(v ?? '')> 0)
       {
+        this.totalTime = new TimeCode(0,0,0,0,this.frameRates.get(parseInt(v ?? ''))??0);
         self.videoClips.enable();
       }
     });
@@ -86,10 +87,10 @@ export class ShowReelEditorComponent implements OnInit {
             parseInt(lastTimeInfo.clipEndTimeCodeMinutes ?? ''),
             parseInt(lastTimeInfo.clipEndTimeCodeSeconds ?? ''),
             parseInt(lastTimeInfo.clipEndTimeCodeFrames ?? ''),
-            this.frameRates.get(parseInt(this.showReelForm.value.videoStandard??''))??0
+            this.totalTime.FramesPerSecond
           );
           
-          this.totalTime = timeCode.ToString;
+          this.totalTime = timeCode;
         }
       });
   }
@@ -99,20 +100,26 @@ export class ShowReelEditorComponent implements OnInit {
   }
 
   AddClip() {
+    var startTimeCode = this.totalTime.Add(new TimeCode(0,0,0,1, this.totalTime.FramesPerSecond));
+    console.log(startTimeCode);
+    var endTimeCode = this.totalTime.Add(new TimeCode(0,0,0,2, this.totalTime.FramesPerSecond));
+    console.log(endTimeCode);
     this.videoClips.push(this.formBuilder.group({
       clipName:[''],
       clipDescription: [''],
       clipVideoDefinition: [''],
       clipVideoStandard:[''],
-      clipStartTimeCodeHours:[''],
-      clipStartTimeCodeMinutes:[''],
-      clipStartTimeCodeSeconds:[''],
-      clipStartTimeCodeFrames:[''],
-      clipEndTimeCodeHours:[''],
-      clipEndTimeCodeMinutes:[''],
-      clipEndTimeCodeSeconds:[''],
-      clipEndTimeCodeFrames:['']
+      clipStartTimeCodeHours:[startTimeCode.Hours],
+      clipStartTimeCodeMinutes:[startTimeCode.Minutes],
+      clipStartTimeCodeSeconds:[startTimeCode.Seconds],
+      clipStartTimeCodeFrames:[startTimeCode.Frames],
+      clipEndTimeCodeHours:[endTimeCode.Hours],
+      clipEndTimeCodeMinutes:[endTimeCode.Minutes],
+      clipEndTimeCodeSeconds:[endTimeCode.Seconds],
+      clipEndTimeCodeFrames:[endTimeCode.Frames]
     }));
+
+    this.totalTime = endTimeCode;
   }
 
   removeClip(i: number) {

@@ -73,15 +73,15 @@ export class TimeCode {
         this.AssertFrameRate(this, timeCode);
 
         var totalFrames = this.frames + timeCode.Frames;
-        var framesToPromote = totalFrames / this.FramesPerSecond;
+        var framesToPromote = Math.floor(totalFrames / this.FramesPerSecond);
         var frames = totalFrames % this.FramesPerSecond;
 
         var totalSeconds = this.Seconds + timeCode.Seconds + framesToPromote;
-        var secondsToPromote = totalSeconds / this.secondsPerMinute;
+        var secondsToPromote = Math.floor(totalSeconds / this.secondsPerMinute);
         var seconds = totalSeconds % this.secondsPerMinute;
 
         var totalMinutes = this.Minutes + timeCode.Minutes + secondsToPromote;
-        var minutesToPromote = totalMinutes / this.minutesPerHour;
+        var minutesToPromote = Math.floor(totalMinutes / this.minutesPerHour);
         var minutes = totalMinutes % this.minutesPerHour;
 
         var totalHours = this.Hours + timeCode.Hours + minutesToPromote;
