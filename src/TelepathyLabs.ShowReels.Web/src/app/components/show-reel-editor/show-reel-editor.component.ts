@@ -76,15 +76,18 @@ export class ShowReelEditorComponent implements OnInit {
         var timeInfo = v as VideoClipTimeCodes[];
         var lastTimeInfo = timeInfo[timeInfo.length - 1];
 
-        var timeCode = new TimeCode(
-          parseInt(lastTimeInfo.clipEndTimeCodeHours ?? ''),
-          parseInt(lastTimeInfo.clipEndTimeCodeMinutes ?? ''),
-          parseInt(lastTimeInfo.clipEndTimeCodeSeconds ?? ''),
-          parseInt(lastTimeInfo.clipEndTimeCodeFrames ?? ''),
-          this.frameRates.get(parseInt(this.showReelForm.value.videoStandard??''))??0
-        );
-        
-        this.totalTime = timeCode.ToString;
+        if(this.videoClips.enabled)
+        {
+          var timeCode = new TimeCode(
+            parseInt(lastTimeInfo.clipEndTimeCodeHours ?? ''),
+            parseInt(lastTimeInfo.clipEndTimeCodeMinutes ?? ''),
+            parseInt(lastTimeInfo.clipEndTimeCodeSeconds ?? ''),
+            parseInt(lastTimeInfo.clipEndTimeCodeFrames ?? ''),
+            this.frameRates.get(parseInt(this.showReelForm.value.videoStandard??''))??0
+          );
+          
+          this.totalTime = timeCode.ToString;
+        }
       });
   }
 
