@@ -7,6 +7,7 @@ import { KeyValuePair } from 'src/app/services/models/key-value-pair';
 import { VideoClip } from 'src/app/services/models/video-clip';
 import { TimeCode } from 'src/app/services/models/time-code';
 import { ShowReel } from 'src/app/services/models/show-reel';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-show-reel-editor',
@@ -14,6 +15,7 @@ import { ShowReel } from 'src/app/services/models/show-reel';
   styleUrls: ['./show-reel-editor.component.css']
 })
 export class ShowReelEditorComponent implements OnInit {
+
   frameRates = new Map<number, number>();
   totalTime: string;
 
@@ -45,7 +47,8 @@ export class ShowReelEditorComponent implements OnInit {
     private videoDefinitionService: VideoDefinitionService,
     private videoStandardService: VideoStandardService,
     private showReelService: ShowReelsService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private router: Router) {
       this.frameRates.set(1, 25);
       this.frameRates.set(2, 30);
 
@@ -153,6 +156,10 @@ export class ShowReelEditorComponent implements OnInit {
         clips ?? []
       );
       console.log(showReel);
+      this.showReelService.save(showReel).subscribe(response => {
+        console.log(response);
+        this.router.navigate(['list-show-reels']);
+      });
     }catch(error: any){
       alert(error);
     }
