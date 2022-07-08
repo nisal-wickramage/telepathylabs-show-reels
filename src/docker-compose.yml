@@ -6,8 +6,8 @@ services:
         image: postgres
         restart: always
         environment:
-            - POSTGRES_USER=showreels
-            - POSTGRES_PASSWORD=DunFV1pTCY
+            - POSTGRES_USER=showreelsapi
+            - POSTGRES_PASSWORD=showreelsapi
         ports:
             - '5432:5432'
 
@@ -18,3 +18,23 @@ services:
             - "8080:8080"
         depends_on:
             - "db"
+    api:
+        build:
+            context: .
+            dockerfile: TelepathyLabs.ShowReels.Api/Dockerfile
+        restart: always
+        ports:
+            - "5001:80"
+        environment:
+            - ShowReelsConnection=Host=db;Database=ShowReels;Username=showreelsapi;Password=showreelsapi
+        depends_on:
+            - "db"
+    web:
+        build:
+            context: .
+            dockerfile: TelepathyLabs.ShowReels.Web/Dockerfile
+        restart: always
+        ports:
+            - "5002:80"
+        depends_on:
+            - "api"

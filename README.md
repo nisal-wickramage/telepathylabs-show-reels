@@ -8,6 +8,12 @@
 ## Running the code
 * To run frontend run `ng serve` from path `src/TelepathyLabs.ShowReels.Web`. Api Url can be changed by updating `src/assets/config.json`
 * To run backend run `dotnet run` from path `src/TelepathyLabs.ShowReels.Api`. Db connection string can be changed by updating `appsettings.json`
+* Open `http://localhost:4200` on the browser
+
+## Run using `docker compose`
+* From terminal go into `src` folder.
+* Run `docker compose up` 
+* Open `http://localhost:5002` on the browser
 
 ## Assumptions
 * Consistancy over performance
