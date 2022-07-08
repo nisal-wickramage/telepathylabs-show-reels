@@ -43,7 +43,7 @@ export class ShowReelsService {
 
           return new VideoClip(v.Name, v.Description, v.VideoDefinition, v.VideoStandard, startTimeCode, endTimeCode);
         });
-        return new ShowReel(s.Name, s.Description, s.VideoDefinition, s.VideoStandard, s.VideoClips);
+        return new ShowReel(s.Name, s.Description, s.VideoDefinition, s.VideoStandard, videoClips);
       })));
   }
 
