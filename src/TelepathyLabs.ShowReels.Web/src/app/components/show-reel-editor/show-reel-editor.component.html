@@ -44,9 +44,9 @@
         </div>
 
         <div class="row mt-3">
-            <label class="col-2 col-form-label">Total Duration</label>
+            <label class="col-2 col-form-label">Total Duration (HH:MM:ss:ff)</label>
             <div class="col-6">
-                <input type="text" class="form-control">
+                {{ totalTime }}
             </div>
         </div>
 
@@ -63,8 +63,6 @@
                     <tr>
                         <th>Clip Name</th>
                         <th>Clip Description</th>
-                        <th>Video Standard</th>
-                        <th>Video Definition</th>
                         <th>Start Time Code</th>
                         <th>End Time Code</th>
                     </tr>
@@ -75,21 +73,6 @@
                                 class="form-control"></td>
                         <td> <input id="videoClipDescription-{{i}}" formControlName="clipDescription" type="text"
                                 class="form-control"></td>
-                        <td>
-                            <select id="clipVideoStandard-{{i}}" class="form-select" aria-label="Video Standard" formControlName="clipVideoStandard">
-                                <option selected value="0">Select</option>
-                                <option *ngFor="let videoStandard of videoStandards" value="{{videoStandard.Key}}">
-                                    {{videoStandard.Value}}</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select id="clipVideoDefinition-{{i}}" class="form-select" aria-label="Video Definition"
-                                formControlName="clipVideoDefinition">
-                                <option selected value="0">Select</option>
-                                <option *ngFor="let videoDefinition of videoDefinitions"
-                                    value="{{videoDefinition.Key}}">{{videoDefinition.Value}}</option>
-                            </select>
-                        </td>
                         <td>
                             <div class="input-group">
                                 <span class="input-group-text">HH:</span>
@@ -114,7 +97,7 @@
                                 <input id="clipEndTimeCodeFrames-{{i}}" formControlName="clipEndTimeCodeFrames" type="text" class="form-control" placeholder="ff" aria-label="Frames">
                             </div>
                         </td>
-                        <td><button type="button" class="btn btn-warn" (click)="removeClip(i)">X</button></td>
+                        <td><button *ngIf="videoClips.length>1" type="button" class="btn btn-warn" (click)="removeClip(i)">X</button></td>
                     </tr>
                 </tbody>
             </table>

@@ -102,7 +102,7 @@ export class TimeCode {
     }
 
     public get ToString() {
-        return `${String(this.hours).padStart(2, "0")}:${String(this.minutes).padStart(2, "0")}:${String(this.seconds).padStart(2, "0")}:${String(this.frames).padStart(2, "0")}`;
+        return `${String(isNaN(this.hours)? 0: this.hours).padStart(2, "0")}:${String(isNaN(this.minutes)? 0: this.minutes).padStart(2, "0")}:${String(isNaN(this.seconds)? 0: this.seconds).padStart(2, "0")}:${String(isNaN(this.frames)? 0: this.frames).padStart(2, "0")}`;
     }
 
     private AssertFrameRate(a: TimeCode,b: TimeCode)

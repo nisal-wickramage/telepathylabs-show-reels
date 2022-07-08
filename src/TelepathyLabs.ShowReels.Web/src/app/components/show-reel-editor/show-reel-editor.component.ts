@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { VideoStandardService } from '../../services/video-standards/video-standard.service';
 import { VideoDefinitionService } from '../../services/video-definitions/video-definition.service';
 import { ShowReelsService } from '../../services/ShowReels/show-reels.service';
-import { FormBuilder, FormArray} from '@angular/forms';
+import { FormBuilder, FormArray, Validators} from '@angular/forms';
 import { KeyValuePair } from 'src/app/services/models/key-value-pair';
 import { VideoClip } from 'src/app/services/models/video-clip';
 import { TimeCode } from 'src/app/services/models/time-code';
@@ -15,27 +15,25 @@ import { ShowReel } from 'src/app/services/models/show-reel';
 })
 export class ShowReelEditorComponent implements OnInit {
   frameRates = new Map<number, number>();
+  totalTime: string;
 
   showReelForm = this.formBuilder.group({
-    name: [''],
-    description: [''],
-    videoDefinition: [''],
-    videoStandard: [''],
-    totalDuration: [''],
+    name: ['', [Validators.required]],
+    description: ['', [Validators.required]],
+    videoDefinition: ['', [Validators.required, Validators.min(1), Validators.max(2)]],
+    videoStandard: ['', [Validators.required, Validators.min(1), Validators.max(2)]],
     videoClips: this.formBuilder.array([
       this.formBuilder.group({
         clipName:[''],
         clipDescription: [''],
-        clipVideoDefinition: [''],
-        clipVideoStandard:[''],
-        clipStartTimeCodeHours:[''],
-        clipStartTimeCodeMinutes:[''],
-        clipStartTimeCodeSeconds:[''],
-        clipStartTimeCodeFrames:[''],
-        clipEndTimeCodeHours:[''],
-        clipEndTimeCodeMinutes:[''],
-        clipEndTimeCodeSeconds:[''],
-        clipEndTimeCodeFrames:['']
+        clipStartTimeCodeHours:['', [Validators.required, Validators.min(0), Validators.max(59)]],
+        clipStartTimeCodeMinutes:['', [Validators.required, Validators.min(0), Validators.max(59)]],
+        clipStartTimeCodeSeconds:['', [Validators.required, Validators.min(0), Validators.max(59)]],
+        clipStartTimeCodeFrames:['', [Validators.required, Validators.min(0), Validators.max(59)]],
+        clipEndTimeCodeHours:['', [Validators.required, Validators.min(0), Validators.max(59)]],
+        clipEndTimeCodeMinutes:['', [Validators.required, Validators.min(0), Validators.max(59)]],
+        clipEndTimeCodeSeconds:['', [Validators.required, Validators.min(0), Validators.max(59)]],
+        clipEndTimeCodeFrames:['', [Validators.required, Validators.min(0), Validators.max(59)]]
       })
     ])
   });
@@ -50,6 +48,8 @@ export class ShowReelEditorComponent implements OnInit {
     private formBuilder: FormBuilder) {
       this.frameRates.set(1, 25);
       this.frameRates.set(2, 30);
+
+      this.totalTime = '00:00:00:00'
      }
 
   ngOnInit(): void {
@@ -60,6 +60,32 @@ export class ShowReelEditorComponent implements OnInit {
     this.videoStandardService.get().subscribe(response => {
       this.videoStandards = response;
     });
+
+    var self = this;
+    this.videoClips.disable();
+
+
+    this.showReelForm.get('videoStandard')?.valueChanges.subscribe(v => {
+      if(parseInt(v ?? '')> 0)
+      {
+        self.videoClips.enable();
+      }
+    });
+
+    this.videoClips.valueChanges.subscribe(v => {
+        var timeInfo = v as VideoClipTimeCodes[];
+        var lastTimeInfo = timeInfo[timeInfo.length - 1];
+
+        var timeCode = new TimeCode(
+          parseInt(lastTimeInfo.clipEndTimeCodeHours ?? ''),
+          parseInt(lastTimeInfo.clipEndTimeCodeMinutes ?? ''),
+          parseInt(lastTimeInfo.clipEndTimeCodeSeconds ?? ''),
+          parseInt(lastTimeInfo.clipEndTimeCodeFrames ?? ''),
+          this.frameRates.get(parseInt(this.showReelForm.value.videoStandard??''))??0
+        );
+        
+        this.totalTime = timeCode.ToString;
+      });
   }
 
   public get videoClips(){
@@ -96,17 +122,23 @@ export class ShowReelEditorComponent implements OnInit {
         parseInt(v.clipStartTimeCodeMinutes??''),
         parseInt(v.clipStartTimeCodeSeconds??''),
         parseInt(v.clipStartTimeCodeFrames??''),
-        this.frameRates.get(parseInt(v.clipVideoStandard??''))??0
+        this.frameRates.get(parseInt(this.showReelForm.value.videoStandard??''))??0
       );
       var endTimeCode = new TimeCode(
         parseInt(v.clipEndTimeCodeHours??''),
         parseInt(v.clipEndTimeCodeMinutes??''),
         parseInt(v.clipEndTimeCodeSeconds??''),
         parseInt(v.clipEndTimeCodeFrames??''),
-        this.frameRates.get(parseInt(v.clipVideoStandard??''))??0
+        this.frameRates.get(parseInt(this.showReelForm.value.videoStandard??''))??0
       );
 
-      return new VideoClip(v.clipName ?? '', v.clipDescription ?? '', parseInt(v.clipVideoDefinition??''), parseInt(v.clipVideoStandard??''), startTimeCode, endTimeCode);
+      return new VideoClip(
+        v.clipName ?? '', 
+        v.clipDescription ?? '', 
+        parseInt(this.showReelForm.value.videoDefinition??''), 
+        parseInt(this.showReelForm.value.videoStandard??''), 
+        startTimeCode, 
+        endTimeCode);
     });
 
     var showReel = new ShowReel(
@@ -119,4 +151,23 @@ export class ShowReelEditorComponent implements OnInit {
     console.log(showReel);
   }
 
+  get isVideoStandardSelected(): boolean {
+    if(this.showReelForm.value.videoStandard)
+    {
+      return parseInt(this.showReelForm.value.videoStandard) > 0;
+    }
+    return false;
+  }
+
+}
+
+interface VideoClipTimeCodes {
+  clipStartTimeCodeHours: string;
+  clipStartTimeCodeMinutes: string;
+  clipStartTimeCodeSeconds: string;
+  cliStartTimeCodeFrames: string;
+  clipEndTimeCodeHours: string;
+  clipEndTimeCodeMinutes: string;
+  clipEndTimeCodeSeconds: string;
+  clipEndTimeCodeFrames: string;
 }
