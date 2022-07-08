@@ -76,25 +76,25 @@
                         <td>
                             <div class="input-group">
                                 <span class="input-group-text">HH:</span>
-                                <input id="clipStartTimeCodeHours-{{i}}" formControlName="clipStartTimeCodeHours" type="text" class="form-control" placeholder="HH" aria-label="Hours">
+                                <input id="clipStartTimeCodeHours-{{i}}" formControlName="clipStartTimeCodeHours" type="number" class="form-control" placeholder="HH" aria-label="Hours">
                                 <span class="input-group-text">MM:</span>
-                                <input id="clipStartTimeCodeMinutes-{{i}}" formControlName="clipStartTimeCodeMinutes" type="text" class="form-control" placeholder="MM" aria-label="Minutes">
+                                <input id="clipStartTimeCodeMinutes-{{i}}" formControlName="clipStartTimeCodeMinutes" type="number" class="form-control" placeholder="MM" aria-label="Minutes">
                                 <span class="input-group-text">ss:</span>
-                                <input id="clipStartTimeCodeSeconds-{{i}}" formControlName="clipStartTimeCodeSeconds" type="text" class="form-control" placeholder="ss" aria-label="Seconds">
+                                <input id="clipStartTimeCodeSeconds-{{i}}" formControlName="clipStartTimeCodeSeconds" type="number" class="form-control" placeholder="ss" aria-label="Seconds">
                                 <span class="input-group-text">ff:</span>
-                                <input id="clipStartTimeCodeFrames-{{i}}" formControlName="clipStartTimeCodeFrames" type="text" class="form-control" placeholder="ff" aria-label="Frames">
+                                <input id="clipStartTimeCodeFrames-{{i}}" formControlName="clipStartTimeCodeFrames" type="number" class="form-control" placeholder="ff" aria-label="Frames">
                             </div>
                         </td>
                         <td>
                             <div class="input-group">
                                 <span class="input-group-text">HH:</span>
-                                <input id="clipEndTimeCodeHours-{{i}}" formControlName="clipEndTimeCodeHours" type="text" class="form-control" placeholder="HH" aria-label="Hours">
+                                <input id="clipEndTimeCodeHours-{{i}}" formControlName="clipEndTimeCodeHours" type="number" class="form-control" placeholder="HH" aria-label="Hours">
                                 <span class="input-group-text">MM:</span>
-                                <input id="clipEndTimeCodeMinutes-{{i}}" formControlName="clipEndTimeCodeMinutes" type="text" class="form-control" placeholder="MM" aria-label="Minutes">
+                                <input id="clipEndTimeCodeMinutes-{{i}}" formControlName="clipEndTimeCodeMinutes" type="number" class="form-control" placeholder="MM" aria-label="Minutes">
                                 <span class="input-group-text">ss:</span>
-                                <input id="clipEndTimeCodeSeconds-{{i}}" formControlName="clipEndTimeCodeSeconds" type="text" class="form-control" placeholder="ss" aria-label="Seconds">
+                                <input id="clipEndTimeCodeSeconds-{{i}}" formControlName="clipEndTimeCodeSeconds" type="number" class="form-control" placeholder="ss" aria-label="Seconds">
                                 <span class="input-group-text">ff:</span>
-                                <input id="clipEndTimeCodeFrames-{{i}}" formControlName="clipEndTimeCodeFrames" type="text" class="form-control" placeholder="ff" aria-label="Frames">
+                                <input id="clipEndTimeCodeFrames-{{i}}" formControlName="clipEndTimeCodeFrames" type="number" class="form-control" placeholder="ff" aria-label="Frames">
                             </div>
                         </td>
                         <td><button *ngIf="videoClips.length>1" type="button" class="btn btn-warn" (click)="removeClip(i)">X</button></td>

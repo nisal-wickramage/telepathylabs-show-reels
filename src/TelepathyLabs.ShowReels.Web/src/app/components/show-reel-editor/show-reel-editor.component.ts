@@ -116,39 +116,43 @@ export class ShowReelEditorComponent implements OnInit {
   }
 
   onSubmit() {
-    let clips = this.showReelForm.value.videoClips?.map(v => {
-      var startTimeCode = new TimeCode(
-        parseInt(v.clipStartTimeCodeHours??''),
-        parseInt(v.clipStartTimeCodeMinutes??''),
-        parseInt(v.clipStartTimeCodeSeconds??''),
-        parseInt(v.clipStartTimeCodeFrames??''),
-        this.frameRates.get(parseInt(this.showReelForm.value.videoStandard??''))??0
+    try{
+      let clips = this.showReelForm.value.videoClips?.map(v => {
+        var startTimeCode = new TimeCode(
+          parseInt(v.clipStartTimeCodeHours??''),
+          parseInt(v.clipStartTimeCodeMinutes??''),
+          parseInt(v.clipStartTimeCodeSeconds??''),
+          parseInt(v.clipStartTimeCodeFrames??''),
+          this.frameRates.get(parseInt(this.showReelForm.value.videoStandard??''))??0
+        );
+        var endTimeCode = new TimeCode(
+          parseInt(v.clipEndTimeCodeHours??''),
+          parseInt(v.clipEndTimeCodeMinutes??''),
+          parseInt(v.clipEndTimeCodeSeconds??''),
+          parseInt(v.clipEndTimeCodeFrames??''),
+          this.frameRates.get(parseInt(this.showReelForm.value.videoStandard??''))??0
+        );
+  
+        return new VideoClip(
+          v.clipName ?? '', 
+          v.clipDescription ?? '', 
+          parseInt(this.showReelForm.value.videoDefinition??''), 
+          parseInt(this.showReelForm.value.videoStandard??''), 
+          startTimeCode, 
+          endTimeCode);
+      });
+  
+      var showReel = new ShowReel(
+        this.showReelForm.value.name ?? '',
+        this.showReelForm.value.description ?? '',
+        parseInt(this.showReelForm.value.videoDefinition ?? ''),
+        parseInt(this.showReelForm.value.videoStandard ?? ''),
+        clips ?? []
       );
-      var endTimeCode = new TimeCode(
-        parseInt(v.clipEndTimeCodeHours??''),
-        parseInt(v.clipEndTimeCodeMinutes??''),
-        parseInt(v.clipEndTimeCodeSeconds??''),
-        parseInt(v.clipEndTimeCodeFrames??''),
-        this.frameRates.get(parseInt(this.showReelForm.value.videoStandard??''))??0
-      );
-
-      return new VideoClip(
-        v.clipName ?? '', 
-        v.clipDescription ?? '', 
-        parseInt(this.showReelForm.value.videoDefinition??''), 
-        parseInt(this.showReelForm.value.videoStandard??''), 
-        startTimeCode, 
-        endTimeCode);
-    });
-
-    var showReel = new ShowReel(
-      this.showReelForm.value.name ?? '',
-      this.showReelForm.value.description ?? '',
-      parseInt(this.showReelForm.value.videoDefinition ?? ''),
-      parseInt(this.showReelForm.value.videoStandard ?? ''),
-      clips ?? []
-    );
-    console.log(showReel);
+      console.log(showReel);
+    }catch(error: any){
+      alert(error);
+    }
   }
 
   get isVideoStandardSelected(): boolean {

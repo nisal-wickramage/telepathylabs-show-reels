@@ -40,7 +40,7 @@ export class ShowReel {
 
         for (let x = 1; x < videoClips.length; x++)
         {
-            if (videoClips[x - 1].EndTimeCode >= videoClips[x].StartTimeCode)
+            if (videoClips[x - 1].EndTimeCode.IsLargerThan(videoClips[x].StartTimeCode) || videoClips[x - 1].EndTimeCode.IsEqualTo(videoClips[x].StartTimeCode))
             {
                 throw new Error("Video clips cannot overlap.");
             }
